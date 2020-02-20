@@ -1,8 +1,6 @@
-from twisted.internet import reactor
-from twisted.internet.defer import Deferred
+"""Sample Twisted OpenFAAS handler code."""
+
 from twisted.logger import Logger
-from twisted.python.url import URL
-from twisted.web.http_headers import Headers
 from twisted.web.resource import Resource
 
 
@@ -14,7 +12,13 @@ class Root(Resource):
 
     def render_GET(self, request):  # noqa: N802
         """Respond to a GET request."""
-        self.log.debug('prepath: {prepath:}', prepath=request.prepath)
-        self.log.debug('postpath: {postpath:}', postpath=request.postpath)
 
         return b'OK'
+
+    def render_POST(self, request):  # noqa: N802
+        """Respond to a POST request."""
+
+        return b'OK'
+
+
+root = Root()

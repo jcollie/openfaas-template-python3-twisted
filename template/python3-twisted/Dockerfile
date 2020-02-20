@@ -6,7 +6,7 @@ RUN chmod +x /usr/bin/fwatchdog
 
 ARG ADDITIONAL_PACKAGE
 # Alternatively use ADD https:// (which will not be cached by Docker builder)
-RUN apk --no-cache add gcc ${ADDITIONAL_PACKAGE}
+RUN apk --no-cache add gcc python3-dev musl-dev libffi-dev openssl-dev ${ADDITIONAL_PACKAGE}
 
 # Add non root user
 RUN addgroup -S app && adduser app -S -G app
