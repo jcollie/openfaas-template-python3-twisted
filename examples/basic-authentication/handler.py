@@ -1,6 +1,6 @@
 """Example of a handler that enforces basic authentication."""
 
-import hashlib
+import crypt
 
 from zope.interface import implementer
 
@@ -17,11 +17,8 @@ from twisted.web.resource import Resource
 
 def hash(username, provided_password, stored_password):
     """Hash the password."""
-    stored_password = bytes.fromhex(stored_password.decode('us-ascii'))
-    salt = stored_password[:64]
-    stored_password = stored_password[64:]
-    hashed_password = hashlib.scrypt(provided_password, salt=salt, n=16384, r=8, p=1, dklen=64)
-    return (salt + hashed_password).hex().encode('us-ascii')
+
+    return crypt.crypt(provided_password.decode('us-ascii'), stored_password.decode('us-ascii')).encode('us-ascii')
 
 
 @implementer(IRealm)
